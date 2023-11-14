@@ -11,16 +11,25 @@ Key notes for blazorwasm:
 - Offline Support - Can be designed to work in an offline or partially connected scenario because the entire application is downloaded to the client.
 
 How?
+
+Library
+1. Generate a (semi/fake) design system as a separate component library
+- dotnet new blazorclasslib -n SomeLibName -o ./src/SomeLibName
+2. Generate X component inside ./src/SomeLibName via:
+- Run.ps1 -task CreateComponent <componentName>
+
+App
 1. C# dev kit
-- ensure dotnet cli is working via '?'
+- check dotnet cli is working via 'dotnet --version'
 2. Blazor extension
 3. Generate new project
 - dotnet new blazorwasm -n SomeName -o ./src/SomeName
-4. Generate a (semi/fake) design system as a separate component library and use as reference inside the application
-- dotnet new blazorclasslib -n SomeLibName -o ./src/SomeLibName
+4. reference components lib inside the app
 > all packages are kept nicely separated under subdir in ./src
-4. Optional: Disable TSL by simply removing removing https:// url from launchSettings.json in the app project -- profiles.SomeName.applicationUrl. Since this is for a demo purpose and you are suppose to run this only on your local evnironment is perfectly safe to do so. The other option is to generate a developer cert, trust it and use it during development. This is a topic outside of the scope of this demo.
+
+Run
+
+4. Optional: (you can also skip this step if you used --no-https when generating the app project) Disable TSL by simply removing https:// url from launchSettings.json in the app project -- profiles.SomeName.applicationUrl. Since this is for a demo purpose and you are suppose to run this only on your local evnironment is perfectly safe to do so. The other option is to generate a developer cert, trust it and use it during development. This is a topic outside of the scope of this demo.
 5. Runt the project
 - cd ./src/SomeName
 - dotnet run
-
