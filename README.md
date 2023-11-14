@@ -10,6 +10,9 @@ Key notes for blazorwasm:
 - Scalability - More suitable for scenarios where the client can handle a larger portion of the application workload, making it potentially more scalable for certain use cases.
 - Offline Support - Can be designed to work in an offline or partially connected scenario because the entire application is downloaded to the client.
 
+> all packages are kept nicely separated under subdir in ./src
+> using helper scripts for generic tasks
+
 How?
 
 Library
@@ -24,12 +27,16 @@ App
 2. Blazor extension
 3. Generate new project
 - dotnet new blazorwasm -n SomeName -o ./src/SomeName
-4. reference components lib inside the app
-> all packages are kept nicely separated under subdir in ./src
-
-Run
-
 4. Optional: (you can also skip this step if you used --no-https when generating the app project) Disable TSL by simply removing https:// url from launchSettings.json in the app project -- profiles.SomeName.applicationUrl. Since this is for a demo purpose and you are suppose to run this only on your local evnironment is perfectly safe to do so. The other option is to generate a developer cert, trust it and use it during development. This is a topic outside of the scope of this demo.
-5. Runt the project
-- cd ./src/SomeName
-- dotnet run
+5. reference components lib inside the app
+- dotnet add ./src/ExampleBlazorApp/ExampleBlazorApp.csproj reference ./src/ExampleBlazorDS/ExampleBlazorDS.csproj
+
+Scripts
+- explain root and subdir scripts
+1. gen component
+> .\Run.ps1 -task CreateComponent -arguments <componentName>
+2. run
+> .\Run.ps1 -task Start
+
+
+
