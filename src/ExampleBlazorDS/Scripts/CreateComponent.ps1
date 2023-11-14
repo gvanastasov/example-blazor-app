@@ -21,7 +21,7 @@ if (-not (Test-Path -Path $componentDir -PathType Container)) {
 
 # Create the component markup file
 @"
-@inherits $componentName
+@inherits ExampleBlazorDS.Components.$($componentName)Base
 
 <div class=".$componentName">Hello, $componentName!</div>
 "@ | Out-File -FilePath "$componentDir\$componentName.razor" -Force
@@ -30,10 +30,13 @@ if (-not (Test-Path -Path $componentDir -PathType Container)) {
 @"
 using Microsoft.AspNetCore.Components;
 
-public class $componentName : ComponentBase
+namespace ExampleBlazorDS.Components
 {
+    public class $($componentName)Base : ComponentBase
+    {
+    }
 }
-"@ | Out-File -FilePath "$componentDir\$componentName.razor.cs" -Force
+"@ | Out-File -FilePath "$componentDir\$($componentName)Base.cs" -Force
 
 # Create the component styles file
 @"
