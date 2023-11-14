@@ -24,6 +24,9 @@ if ($task -eq "CreateComponent") {
         Write-Host "Task script '$taskPath' not found."
     }
 }
+elseif ($task -eq "Start") {
+    Invoke-Expression -Command "dotnet run --project ./src/ExampleBlazorApp/ExampleBlazorApp.csproj"
+}
 else {
     Write-Host "Task '$task' not found."
 }
