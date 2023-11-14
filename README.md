@@ -16,7 +16,11 @@ How?
 2. Blazor extension
 3. Generate new project
 - dotnet new blazorwasm -n SomeName -o ./src/SomeName
-4. Optional: Disable TSL by simply removing removing https:// url from launchSettings.json -- profiles.SomeName.applicationUrl. Since this is for a demo purpose and you are suppose to run this only on your local evnironment is perfectly safe to do so. The other option is to generate a developer cert, trust it and use it during development. This is a topic outside of the scope of this demo.
+4. Generate a (semi/fake) design system as a separate component library and use as reference inside the application
+- dotnet new blazorclasslib -n SomeLibName -o ./src/SomeLibName
+> all packages are kept nicely separated under subdir in ./src
+4. Optional: Disable TSL by simply removing removing https:// url from launchSettings.json in the app project -- profiles.SomeName.applicationUrl. Since this is for a demo purpose and you are suppose to run this only on your local evnironment is perfectly safe to do so. The other option is to generate a developer cert, trust it and use it during development. This is a topic outside of the scope of this demo.
 5. Runt the project
 - cd ./src/SomeName
 - dotnet run
+
