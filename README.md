@@ -1,42 +1,75 @@
-# example-blazor-app
- A simple application built with Blazor
+# Example Blazor Application
 
-What?
-A simple webapp and a helper library with some reusable components to showcase how Blazor WebAssembly (short for blazorwasm, or simply put client) application works althogher.
-Key notes for blazorwasm:
-- Execution Location - The application code is executed in the browser. The entire Blazor application, including the UI logic and components, is downloaded to the client's browser, and the execution happens there. This enables running C# code directly in the browser using WebAssembly.
-- Size of Initial Download - The initial download size is larger because it includes the .NET runtime and the application code. Subsequent interactions may require minimal data transfer for updates and data.
-- Performance - Generally, the execution speed is limited by the performance of WebAssembly in the browser. However, advancements in WebAssembly performance are ongoing.
-- Scalability - More suitable for scenarios where the client can handle a larger portion of the application workload, making it potentially more scalable for certain use cases.
-- Offline Support - Can be designed to work in an offline or partially connected scenario because the entire application is downloaded to the client.
+A simple web application and a helper library showcasing the functionality of Blazor WebAssembly (blazorwasm). The project includes a Blazor app, a reusable component library, and PowerShell scripts for handling repetitive tasks. This README provides instructions on setting up the project and describes key aspects of Blazor WebAssembly.
 
-> all packages are kept nicely separated under subdir in ./src
-> using helper scripts for generic tasks
+## Blazor WebAssembly Overview
 
-How?
+Blazor WebAssembly allows the execution of C# code directly in the browser using WebAssembly. Here are some key considerations for Blazor WebAssembly:
 
-Library
-1. Generate a (semi/fake) design system as a separate component library
-- dotnet new blazorclasslib -n SomeLibName -o ./src/SomeLibName
-2. Generate X component inside ./src/SomeLibName via:
-- Run.ps1 -task CreateComponent <componentName>
+- **Execution Location:** The application code runs in the client's browser, enabling the execution of UI logic and components on the client side.
+  
+- **Size of Initial Download:** The initial download size is larger due to including the .NET runtime and application code. Subsequent interactions require minimal data transfer for updates.
 
-App
-1. C# dev kit
-- check dotnet cli is working via 'dotnet --version'
-2. Blazor extension
-3. Generate new project
-- dotnet new blazorwasm -n SomeName -o ./src/SomeName
-4. Optional: (you can also skip this step if you used --no-https when generating the app project) Disable TSL by simply removing https:// url from launchSettings.json in the app project -- profiles.SomeName.applicationUrl. Since this is for a demo purpose and you are suppose to run this only on your local evnironment is perfectly safe to do so. The other option is to generate a developer cert, trust it and use it during development. This is a topic outside of the scope of this demo.
-5. reference components lib inside the app
-- dotnet add ./src/ExampleBlazorApp/ExampleBlazorApp.csproj reference ./src/ExampleBlazorDS/ExampleBlazorDS.csproj
+- **Performance:** Execution speed is limited by the performance of WebAssembly in the browser, with ongoing advancements in WebAssembly performance.
 
-Scripts
-- explain root and subdir scripts
-1. gen component
-> .\Run.ps1 -task CreateComponent -arguments <componentName>
-2. run
-> .\Run.ps1 -task Start
+- **Scalability:** More suitable for scenarios where the client handles a larger portion of the application workload, potentially making it more scalable for certain use cases.
 
+- **Offline Support:** Can be designed to work in an offline or partially connected scenario as the entire application is downloaded to the client.
 
+## Getting Started
 
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [.NET SDK](https://dotnet.microsoft.com/download)
+- [Visual Studio Code](https://code.visualstudio.com/) with the Blazor extension
+
+### Project Structure
+
+All packages are organized neatly under the `./src` subdirectory. The project includes a helper library with reusable components and scripts for generic tasks.
+
+### Library
+
+1. **Generate a (semi/fake) design system as a separate component library:**
+   ```bash
+   dotnet new blazorclasslib -n SomeLibName -o ./src/SomeLibName
+   ```
+2. **Generate a component inside ./src/SomeLibName using the script:**
+    ```bash
+    .\Run.ps1 -task CreateComponent -arguments <componentName>
+    ```
+
+### Application
+
+1. **Ensure .NET CLI is working**
+    ```bash
+    dotnet --version
+    ```
+2. **Install Blazor extension:**
+Install the Blazor extension for Visual Studio Code.
+3. **Generate a new Blazor WebAssembly project:**
+    ```bash
+    dotnet new blazorwasm -n SomeName -o ./src/SomeName
+    ```
+4. **Optional: Disable HTTPS in launchSettings.json (for demo purposes):**
+Remove the https:// URL from profiles.SomeName.applicationUrl in launchSettings.json within the app project. This is suitable for local development.
+5. **Reference the component library inside the app:**
+dotnet add ./src/ExampleBlazorApp/ExampleBlazorApp.csproj reference ./src/SomeLibName/SomeLibName.csproj
+
+### Scripts
+
+The project includes PowerShell scripts for common tasks. These scripts simplify common development tasks, making it easy to generate components and run the Blazor application. Adjust the script parameters as needed for your specific use case.
+
+- Generate a component:
+    ```bash
+    .\Run.ps1 -task CreateComponent -arguments <componentName>
+    ```
+- Run the application:
+    ```bash
+    .\Run.ps1 -task Start
+    ```
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
