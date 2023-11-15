@@ -3,14 +3,14 @@
 
 <PageTitle>Home</PageTitle>
 
-<main style="max-width: 400px;text-align: center">
+<main>
     <h1>Example Blazor WASM Application</h1>
     <p>A simple showcase of blazor application, which references a design system library. The project was built via VSCode and dotnet cli. Additional helper powershell functions were added to streamline the development process, for example creating Components in the DS library.</p>
-    <p style="font-weight: bolder;font-size: xxx-large;">@currentCount</p>
+    <p class="counter">@currentCount</p>
     <p role="status">current count</p>
     <div>
-    <CButton ButtonText="Increase" OnClick="() => update(1)"></CButton>
-    <CButton ButtonText="Decrease" OnClick="() => update(-1)"></CButton>
+        <CButton ButtonText="Increase" OnClick="() => update(1)"></CButton>
+        <CButton ButtonText="Decrease" OnClick="() => update(-1)"></CButton>
     </div>
 </main>
 
@@ -22,3 +22,15 @@
         currentCount += value;
     }
 }
+
+<style>
+main {
+    max-width: 400px;
+    text-align: center;
+}
+
+.counter {
+    font-weight: bolder;
+    font-size: xxx-large;
+}
+</style>
