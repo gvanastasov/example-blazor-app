@@ -70,6 +70,26 @@ The project includes PowerShell scripts for common tasks. These scripts simplify
     .\Run.ps1 -task Start
     ```
 
+## Testing
+
+1. generate test project with xunit framework
+    ```bash
+    dotnet new xunit -n ./test/ExampleBlazorDS.Tests
+    ```
+2. add reference to respective library
+    ```bash
+    dotnet add reference ../../src/ExampleBlazorDS/ExampleBlazorDS.csproj
+    ```
+3. add BUnit
+    ```bash
+    dotnet add package Bunit
+    ```
+4. write tests
+5. run tests
+    ```bash
+    dotnet test
+    ```
+
 ## License
 
 This project is licensed under the [MIT License](./LICENSE).
