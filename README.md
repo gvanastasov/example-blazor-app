@@ -1,4 +1,4 @@
-# Example Blazor Application
+# Example Blazor WASM Application
 
 A simple web application and a helper library showcasing the functionality of Blazor WebAssembly (blazorwasm). The project includes a Blazor app, a reusable component library, and PowerShell scripts for handling repetitive tasks. This README provides instructions on setting up the project and describes key aspects of Blazor WebAssembly.
 
