@@ -1,9 +1,28 @@
 ﻿@page "/"
+@using ExampleBlazorDS.Components.CButton
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<main>
+    <h1>Example Blazor Application</h1>
+    <p>A simple showcase of blazor application, which references a design system library. The project was built via VSCode and dotnet cli. Additional helper powershell functions were added to streamline the development process, for example creating Components in the DS library.</p>
+    <p>@currentCount</p>
+    <p role="status">current count</p>
+    <div>
+    <CButton ButtonText="Increment" OnClick="IncrementCount"></CButton>
+    <CButton ButtonText="Decrease" OnClick="DecreaseCount"></CButton>
+    </div>
+</main>
 
-Welcome to your new app.
+@code {
+    private int currentCount = 0;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private void DecreaseCount() {
+        currentCount--;
+    }
+}
