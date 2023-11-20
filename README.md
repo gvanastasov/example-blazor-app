@@ -80,9 +80,10 @@ The project includes PowerShell scripts for common tasks. These scripts simplify
     ```bash
     dotnet add reference ../../src/ExampleBlazorDS/ExampleBlazorDS.csproj
     ```
-3. add BUnit
+3. add BUnit & Playwright
     ```bash
     dotnet add package Bunit
+    dotnet add package Microsoft.Playwright
     ```
 4. write tests
 5. run tests

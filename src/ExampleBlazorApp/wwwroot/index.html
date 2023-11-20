@@ -19,6 +19,13 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        window.blazorApp = {
+            pageLoaded: function () {
+                document.dispatchEvent(new Event('blazorPageLoaded'));
+            }
+        };
+    </script>
 </body>
 
 </html>
