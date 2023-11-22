@@ -106,6 +106,11 @@ namespace ExampleBlazorApp.Tests
         {
             var projectPath = "./src/ExampleBlazorApp/ExampleBlazorApp.csproj";
             
+            // TODO: Environment.CurrentDirectory is being set to moved to the test binaries, 
+            // therefore we need to go back a bit can probably rewrite this better but for now this.
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string solutionRoot = Path.GetFullPath(Path.Combine(currentDirectory, "..", "..", "..", "..", ".."));
+
             ProcessStartInfo? processStartInfo = new ProcessStartInfo
             {
                 FileName = "dotnet",
@@ -113,7 +118,7 @@ namespace ExampleBlazorApp.Tests
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
-                WorkingDirectory = "C:/Users/cti1930/Repos/example-blazor-app/"
+                WorkingDirectory = solutionRoot
             };
 
             var process = new Process { StartInfo = processStartInfo };
@@ -121,7 +126,7 @@ namespace ExampleBlazorApp.Tests
             process.Start();
 
             diagnosticMessageSink.OnMessage(
-                new DiagnosticMessage($"Starting app process in {processStartInfo.WorkingDirectory}..."));
+                new DiagnosticMessage($"Starting app process in '{processStartInfo.WorkingDirectory}'..."));
 
             return process;
         }
