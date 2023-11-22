@@ -7,6 +7,8 @@ namespace ExampleBlazorApp.Tests
 {
     public class PlaywrightFixture : IAsyncLifetime
     {
+        private const string TEST_URI = "http://localhost:5000";
+
         private readonly IMessageSink diagnosticMessageSink;
 
         private Process? _appProcess;
@@ -33,7 +35,7 @@ namespace ExampleBlazorApp.Tests
 
                 _appProcess = AppStart();
 
-                bool isReady = await ReadyCheck("http://localhost:5000");
+                bool isReady = await ReadyCheck(TEST_URI);
                 if (!isReady)
                 {
                     throw new InvalidOperationException("App is not reachable within the expected time.");
@@ -70,7 +72,7 @@ namespace ExampleBlazorApp.Tests
                 return;
             }
 
-            Uri? baseUri = new Uri("http://localhost:5000");
+            Uri? baseUri = new Uri(TEST_URI);
             var browser = await Playwright.Chromium.LaunchAsync();
             await using var context = await browser
                 .NewContextAsync(
@@ -114,7 +116,7 @@ namespace ExampleBlazorApp.Tests
             ProcessStartInfo? processStartInfo = new ProcessStartInfo
             {
                 FileName = "dotnet",
-                Arguments = $"run --project {projectPath} --urls http://localhost:5000",
+                Arguments = $"run --project {projectPath} --urls {TEST_URI}",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
