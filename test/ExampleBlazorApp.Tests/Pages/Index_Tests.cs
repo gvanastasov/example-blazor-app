@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using ExampleBlazorApp.Tests.Fixtures;
 
 namespace ExampleBlazorApp.Tests.Pages
 {
