@@ -13,7 +13,7 @@ namespace ExampleBlazorApp.Tests.Pages
         }
 
         [Fact]
-        public async Task YourTest2()
+        public async Task Page_HasHeading()
         {
             // Act
             await _playwrightFixture.GotoPageAsync(
@@ -24,8 +24,54 @@ namespace ExampleBlazorApp.Tests.Pages
                     var headingElement = await page.QuerySelectorAsync("h1");
                     Assert.NotNull(headingElement);
 
-                    var headingText = await headingElement.TextContentAsync();
-                    Assert.Equal("Example Blazor WASM Application", headingText);
+                    if (headingElement != null)
+                    {
+                        var headingText = await headingElement.TextContentAsync();
+                        Assert.Equal("Example Blazor WASM Application", headingText);
+                    }
+                });
+        }
+
+        [Fact]
+        public async Task Page_ButtonsUpdateCounterValue() 
+        {
+            // Act
+            await _playwrightFixture.GotoPageAsync(
+                "/",
+                async (page) =>
+                {
+                    // Assert
+                    var counterElement = await page.QuerySelectorAsync("p.counter");
+                    Assert.NotNull(counterElement);
+
+                    var controls = await page.QuerySelectorAllAsync("button");
+                    var incrementButton = controls.FirstOrDefault();
+                    var decreaseButton = controls.LastOrDefault();
+
+                    Assert.NotNull(incrementButton);
+                    Assert.NotNull(decreaseButton);
+
+                    if (counterElement != null)
+                    {
+                        var value = await counterElement.InnerTextAsync();
+                        Assert.Equal("0", value);
+                        
+                        if (incrementButton != null)
+                        {
+                            await incrementButton.ClickAsync();
+                            value = await counterElement.InnerTextAsync();
+
+                            Assert.Equal("1", value);
+                        }
+
+                        if (decreaseButton != null)
+                        {
+                            await decreaseButton.ClickAsync();
+                            value = await counterElement.InnerTextAsync();
+
+                            Assert.Equal("0", value);
+                        }
+                    }
                 });
         }
     }

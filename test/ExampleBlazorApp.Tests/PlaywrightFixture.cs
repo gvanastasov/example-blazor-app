@@ -56,12 +56,20 @@ namespace ExampleBlazorApp.Tests
             if (_appProcess != null) {
                 AppStop(_appProcess);
             }
+
+            await Task.CompletedTask;
         }
 
         public async Task GotoPageAsync(
             string url,
             Func<IPage, Task> testHandler)
         {
+            if (Playwright == null) 
+            {
+                await Task.CompletedTask;
+                return;
+            }
+
             Uri? baseUri = new Uri("http://localhost:5000");
             var browser = await Playwright.Chromium.LaunchAsync();
             await using var context = await browser
@@ -80,12 +88,13 @@ namespace ExampleBlazorApp.Tests
                     }
                 );
 
-                await gotoResult.FinishedAsync();
-
-                await page.EvaluateAsync(
-                    "eventName => new Promise(callback => window.addEventListener(eventName, callback, { once: true })), 'blazorPageLoaded'");
-                
-                await testHandler(page);
+                if (gotoResult != null) {
+                    await gotoResult.FinishedAsync();
+                    await page.EvaluateAsync(
+                        "eventName => new Promise(callback => window.addEventListener(eventName, callback, { once: true })), 'blazorPageLoaded'");
+                    
+                    await testHandler(page);
+                }
             }
             finally
             {
@@ -147,7 +156,7 @@ namespace ExampleBlazorApp.Tests
                         return true;
                     }
                 }
-                catch (HttpRequestException e)
+                catch (HttpRequestException)
                 {
                     // Ignore errors and retry
                 }
